@@ -1,0 +1,4426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O2CONNECTIVE | あなたの心に寄り添うAIカウンセラー</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Silver - メイン色（落ち着いた印象） */
+            --primary: #5a6470;
+            --primary-mid: #6b7580;
+            --primary-soft: #8a939e;
+            --primary-light: #f0f1f3;
+            /* Pink Gold - アクセント（華やかさ） */
+            --accent: #c4967e;
+            --accent-mid: #d4a898;
+            --accent-soft: #e0bdb0;
+            --accent-light: #faf5f3;
+            /* Silver Dark - 見出し等 */
+            --silver-dark: #4a5568;
+            --silver-mid: #718096;
+            --silver-light: #a0aec0;
+            /* Neutral */
+            --gray-900: #2d3748;
+            --gray-700: #4a5568;
+            --gray-500: #718096;
+            --gray-300: #cbd5e0;
+            --gray-100: #f7f6f4;
+            --white: #fdfcfa;
+            --pure-white: #ffffff;
+            /* Shadows - より柔らかく */
+            --shadow-sm: 0 2px 8px rgba(90,100,112,0.08);
+            --shadow-md: 0 8px 24px rgba(90,100,112,0.12);
+            --shadow-lg: 0 16px 48px rgba(90,100,112,0.14);
+            --shadow-xl: 0 24px 64px rgba(90,100,112,0.18);
+            /* Organic border-radius - less mechanical */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 20px;
+            --radius-organic-sm: 6px 8px 7px 9px;
+            --radius-organic-md: 10px 14px 12px 16px;
+            --radius-organic-lg: 14px 18px 16px 20px;
+            --radius-organic-xl: 18px 24px 20px 26px;
+            /* Font families */
+            --font-sans: 'Noto Sans JP', 'Inter', sans-serif;
+            --font-serif: 'Noto Serif JP', serif;
+            /* Easing */
+            --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            /* Typography Scale */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--gray-900);
+            line-height: 1.8;
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(90, 100, 112, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 40px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--gray-900);
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text span {
+            display: block;
+            font-size: var(--text-xs);
+            color: var(--gray-700);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            margin-top: 2px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: var(--text-base);
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: var(--text-base);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--gray-700);
+        }
+
+        .btn-ghost:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(90, 100, 112, 0.3);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(196, 150, 126, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-700);
+            border: 1.5px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: var(--text-base);
+        }
+
+        .btn-large-primary {
+            padding: 18px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gray-700);
+            border: 1.5px solid var(--gray-300);
+            padding: 14px 28px;
+            font-size: var(--text-sm);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .btn-header-cta {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-header-cta:hover {
+            background: var(--accent-mid);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(196, 150, 126, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 12px;
+            min-width: 44px;
+            min-height: 44px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--gray-900);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Navigation Overlay */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--white);
+            z-index: 999;
+            padding: 40px 24px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .mobile-nav-links li {
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            padding: 16px 0;
+            color: var(--gray-900);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mobile-nav-buttons .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 72px;
+            background: linear-gradient(160deg, var(--white) 0%, var(--gray-100) 100%);
+        }
+
+        .hero-bg-pattern {
+            display: none;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .hero-gradient-1 {
+            background: var(--primary-light);
+            top: -200px;
+            right: -100px;
+        }
+
+        .hero-gradient-2 {
+            background: var(--accent-light);
+            bottom: -200px;
+            left: -100px;
+        }
+
+        .hero-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeUp 0.7s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-title .accent {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--gray-700);
+            margin-bottom: 32px;
+            max-width: 500px;
+            line-height: 1.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .hero-subtext {
+            font-size: var(--text-base);
+            color: var(--gray-700);
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtext-accent {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Hero Visual - Chat Style */
+        .hero-visual {
+            position: relative;
+            animation: fadeUp 0.7s ease-out 0.15s both;
+        }
+
+        .hero-visual-stack {
+            position: relative;
+        }
+
+        .hero-card-back {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            right: -24px;
+            bottom: -24px;
+            background: var(--accent-light);
+            border-radius: var(--radius-xl);
+            z-index: 0;
+        }
+
+        .hero-card-mid {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: -12px;
+            bottom: -12px;
+            background: var(--accent);
+            border-radius: var(--radius-xl);
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .hero-card {
+            background: var(--pure-white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            padding: 28px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(90, 100, 112, 0.08);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .chat-avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: var(--text-sm);
+        }
+
+        .chat-info h3 {
+            font-size: var(--text-base);
+            font-weight: 700;
+        }
+
+        .chat-info p {
+            font-size: var(--text-xs);
+            color: var(--gray-700);
+        }
+
+        .chat-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: var(--text-xs);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .chat-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+            max-width: 88%;
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            line-height: 1.7;
+        }
+
+        .chat-message.ai {
+            background: var(--gray-100);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-message.user {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        /* ========== PROCESS SECTION ========== */
+        .process-section {
+            padding: 60px 40px;
+            background: var(--accent-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-section::before {
+            display: none;
+        }
+
+        .process-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-tag-light {
+            background: var(--accent);
+            color: white;
+        }
+
+        .process-header h2 {
+            font-family: var(--font-serif);
+            font-size: var(--text-3xl);
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 12px;
+            margin-top: 16px;
+            letter-spacing: 0.02em;
+        }
+
+        .process-header p {
+            color: var(--gray-700);
+            font-size: 1rem;
+        }
+
+        /* Comparison Container */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: stretch;
+            margin-bottom: 32px;
+        }
+
+        .comparison-card {
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(196, 150, 126, 0.2);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            position: relative;
+        }
+
+        .comparison-before {
+            background: rgba(255,255,255,0.6);
+        }
+
+        .comparison-after {
+            background: rgba(255,255,255,0.85);
+            border-color: rgba(196, 150, 126, 0.4);
+        }
+
+        .comparison-label {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            padding: 4px 16px;
+            border-radius: var(--radius-sm);
+            font-size: var(--text-xs);
+            font-weight: 800;
+            letter-spacing: 0.1em;
+        }
+
+        .comparison-before .comparison-label {
+            background: var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        .comparison-after .comparison-label {
+            background: var(--primary);
+            color: white;
+        }
+
+        .comparison-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            padding-top: 8px;
+        }
+
+        .comparison-vs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vs-circle {
+            width: 52px;
+            height: 52px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-sm);
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 8px 24px rgba(196, 150, 126, 0.4);
+        }
+
+        /* Process Flow Vertical */
+        .process-flow-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .process-step-v {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .process-step-v.skipped,
+        .process-step-v.assisted {
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(196, 150, 126, 0.3);
+        }
+
+        .process-step-v.active {
+            background: rgba(255,255,255,0.85);
+            border: 1px solid rgba(196, 150, 126, 0.4);
+            opacity: 1;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-200);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-sm);
+            font-weight: 700;
+            color: var(--gray-600);
+            flex-shrink: 0;
+        }
+
+        .step-number.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .step-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .step-name {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .process-step-v.skipped .step-name,
+        .process-step-v.assisted .step-name {
+            color: var(--gray-900);
+        }
+
+        .step-desc {
+            font-size: var(--text-xs);
+            color: var(--gray-600);
+        }
+
+        .step-desc.highlight {
+            color: var(--accent-soft);
+            font-weight: 600;
+        }
+
+        .skip-badge {
+            padding: 4px 10px;
+            background: rgba(196, 150, 126, 0.3);
+            color: var(--accent-soft);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .step-connector {
+            width: 2px;
+            height: 12px;
+            background: var(--gray-300);
+            margin-left: 31px;
+        }
+
+        .step-connector.skipped {
+            background: var(--gray-200);
+            border-left: 2px dashed var(--gray-400);
+            width: 0;
+        }
+
+        .step-connector-skip {
+            position: relative;
+            margin: 8px 0 8px 16px;
+            padding-left: 24px;
+            border-left: 2px dashed var(--accent-soft);
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skip-arrow {
+            position: absolute;
+            left: -1px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skip-arrow::before {
+            content: '';
+            width: 24px;
+            height: 2px;
+            background: var(--accent-soft);
+        }
+
+        .skip-arrow span {
+            padding: 6px 12px;
+            background: var(--accent);
+            color: white;
+            font-size: var(--text-xs);
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            white-space: nowrap;
+        }
+
+        .comparison-note {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-sm);
+            font-size: var(--text-sm);
+            color: var(--gray-600);
+        }
+
+        .comparison-note.highlight {
+            background: rgba(255,255,255,0.7);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .note-icon {
+            font-size: 1rem;
+        }
+
+        /* Value Props */
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .value-prop {
+            text-align: center;
+        }
+
+        .value-prop h4 {
+            font-size: var(--text-base);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 6px;
+        }
+
+        .value-prop p {
+            font-size: var(--text-sm);
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+
+        /* ========== DIFFERENTIATION SECTION ========== */
+        .differentiation {
+            padding: 60px 40px;
+            background: var(--primary-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .differentiation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--accent));
+        }
+
+        .diff-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .diff-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .diff-header h2 {
+            font-family: var(--font-serif);
+            font-size: var(--text-3xl);
+            font-weight: 600;
+            margin-top: 16px;
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+        }
+
+        .diff-header p {
+            color: var(--gray-700);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Simple Diff Section - No nested boxes */
+        .diff-simple {
+            max-width: 680px;
+            margin: 0 auto 32px;
+        }
+
+        .diff-problem {
+            margin-bottom: 24px;
+        }
+
+        .diff-problem-label {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 16px;
+            letter-spacing: 0.03em;
+        }
+
+        .diff-problem-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .diff-problem-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--gray-700);
+        }
+
+        .diff-problem-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            background: var(--gray-300);
+            border-radius: 50%;
+        }
+
+        .diff-problem-question {
+            color: var(--gray-700);
+            font-style: italic;
+        }
+
+        .diff-problem-conclusion {
+            font-size: 1rem;
+            color: var(--gray-700);
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-300);
+        }
+
+        .diff-solution {
+            margin-top: 24px;
+        }
+
+        .diff-solution-label {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            letter-spacing: 0.03em;
+        }
+
+        .diff-solution-text {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--gray-700);
+            margin-bottom: 24px;
+        }
+
+        .diff-solution-text strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .diff-solution-tagline {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--gray-900);
+        }
+
+        /* Scene Cards */
+        .scene-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .scene-card {
+            padding: 0;
+        }
+
+        .scene-timing {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        .scene-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+            line-height: 1.5;
+        }
+
+        .scene-example {
+            margin-bottom: 12px;
+            padding-left: 14px;
+            border-left: 2px solid var(--gray-300);
+        }
+
+        .scene-example-label {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .scene-example p {
+            font-size: var(--text-base);
+            color: var(--gray-700);
+            line-height: 1.8;
+            font-style: italic;
+            margin: 0;
+        }
+
+        .scene-result {
+            font-size: var(--text-sm);
+            color: var(--gray-600);
+        }
+
+        .scene-result::before {
+            content: '→ ';
+            color: var(--gray-400);
+        }
+
+        @media (max-width: 1024px) {
+            .scene-cards {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        /* ========== SERVICES ========== */
+        .services {
+            padding: 100px 40px;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 56px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: var(--radius-sm);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: var(--text-3xl);
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.01em;
+            line-height: 1.4;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--gray-700);
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--pure-white);
+            border-radius: var(--radius-organic-lg);
+            padding: 28px 24px;
+        }
+
+        .service-image {
+            margin: -28px -24px 20px -24px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .service-badge {
+            display: inline-block;
+            font-size: var(--text-xs);
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+            color: var(--gray-600);
+        }
+
+        .service-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .service-description {
+            color: var(--gray-700);
+            font-size: var(--text-base);
+            margin-bottom: 16px;
+            line-height: 1.75;
+        }
+
+        .service-features {
+            font-size: var(--text-sm);
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* ========== FEATURES SECTION ========== */
+        .features {
+            padding: 100px 40px;
+            background: var(--accent-light);
+        }
+
+        .features-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .features-content h2 {
+            font-family: var(--font-serif);
+            font-size: var(--text-3xl);
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        .features-content > p {
+            color: var(--gray-700);
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 0;
+        }
+
+        .feature-item h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .feature-item p {
+            font-size: var(--text-base);
+            color: var(--gray-700);
+            line-height: 1.7;
+        }
+
+        .features-visual {
+            position: relative;
+        }
+
+        .features-image-stack {
+            position: relative;
+        }
+
+        .features-image-accent {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            background: var(--accent);
+            border-radius: var(--radius-xl);
+            opacity: 0.12;
+            z-index: 0;
+        }
+
+        .features-image-frame {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            z-index: 1;
+        }
+
+        .features-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .features-caption {
+            position: absolute;
+            bottom: -24px;
+            left: 24px;
+            right: 24px;
+            background: var(--pure-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 2;
+        }
+
+        .caption-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+
+        .caption-icon i {
+            width: 22px;
+            height: 22px;
+        }
+
+        .features-caption p {
+            font-size: var(--text-sm);
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        /* ========== WHY SECTION ========== */
+        .why {
+            padding: 100px 40px;
+            background: var(--white);
+        }
+
+        .why-container {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+
+        .why-card {
+            padding: 24px 0;
+        }
+
+        .why-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-300);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .why-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .why-description {
+            color: var(--gray-700);
+            font-size: var(--text-base);
+            line-height: 1.75;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            padding: 100px 40px;
+            background: var(--gray-100);
+        }
+
+        .testimonials-grid {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .testimonial-card {
+            background: var(--pure-white);
+            border-radius: var(--radius-organic-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            border: 1px solid rgba(90, 100, 112, 0.08);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--accent-light);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px) rotate(-0.4deg);
+        }
+
+        .testimonial-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--accent-light);
+            color: #8a6508;
+            border-radius: 4px;
+            font-size: var(--text-sm);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+            line-height: 1.85;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .testimonial-info p {
+            font-size: var(--text-sm);
+            color: var(--gray-700);
+        }
+
+        /* ========== FAQ SECTION ========== */
+        .faq {
+            padding: 100px 40px;
+            background: var(--white);
+        }
+
+        .faq-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            background: var(--pure-white);
+            border: 1px solid rgba(90, 100, 112, 0.08);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent-light);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            transition: all 0.2s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--gray-700);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            background: var(--accent);
+            color: white;
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer-inner {
+            padding: 0 24px 24px;
+            color: var(--gray-700);
+            font-size: 1rem;
+            line-height: 1.85;
+        }
+
+        /* ========== CTA ========== */
+        .cta {
+            padding: 100px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg-image {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .cta-bg-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(90, 100, 112, 0.92), rgba(74, 85, 104, 0.88));
+            z-index: 1;
+        }
+
+        .cta-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-family: var(--font-serif);
+            font-size: var(--text-3xl);
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta .btn-primary {
+            background: var(--pure-white);
+            color: var(--primary);
+        }
+
+        .cta .btn-primary:hover {
+            background: var(--white);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .cta .btn-secondary {
+            border-color: rgba(255,255,255,0.5);
+            color: white;
+            background: transparent;
+        }
+
+        .cta .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        .cta .btn-outline {
+            border-color: rgba(255,255,255,0.4);
+            color: white;
+        }
+
+        .cta .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--gray-900);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 64px 40px 32px;
+        }
+
+        .footer-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand .logo {
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand .logo-icon {
+            background: var(--white);
+        }
+
+        .footer-brand > p {
+            font-size: var(--text-base);
+            line-height: 1.75;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 8px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+        }
+
+        .footer-column h4 {
+            color: white;
+            font-size: var(--text-base);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: var(--text-sm);
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent-soft);
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: var(--text-sm);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: var(--text-sm);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* ========== LUCIDE ICONS GLOBAL ========== */
+        [data-lucide] {
+            stroke-width: 1.75;
+        }
+
+        /* ========== ACCESSIBILITY ========== */
+        /* Focus states */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            z-index: 10000;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
+            }
+
+            .hero-description {
+                margin: 0 auto 32px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-subtext {
+                text-align: center;
+            }
+
+            .hero-visual {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .comparison-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .comparison-vs {
+                transform: rotate(90deg);
+            }
+
+            .value-props {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                padding: 0 24px;
+            }
+
+            .nav-links,
+            .nav-buttons {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .process-section,
+            .differentiation,
+            .services,
+            .features,
+            .why,
+            .testimonials,
+            .faq,
+            .cta {
+                padding: 60px 20px;
+            }
+
+            .hero-inner {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .step-bar {
+                width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-visual {
+                max-width: 100%;
+            }
+
+            .hero-card {
+                padding: 20px;
+            }
+
+            .chat-message {
+                font-size: var(--text-sm);
+                padding: 12px 14px;
+            }
+
+            .features-caption {
+                position: relative;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin-top: 16px;
+                border-radius: var(--radius-md);
+            }
+        }
+
+        /* =============================================
+           Equation Visual Minimal - 引き算式表現
+           ============================================= */
+        .equation-visual-minimal {
+            padding: 100px 40px;
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equation-visual-minimal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(90, 100, 112, 0.1), transparent);
+        }
+
+        .equation-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .equation-label {
+            font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+            font-size: var(--text-sm);
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 48px;
+            opacity: 0.9;
+        }
+
+        .equation-formula {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+        }
+
+        .equation-term {
+            font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-weight: 400;
+            color: var(--silver-dark);
+            letter-spacing: 0.02em;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .equation-term.struck {
+            color: rgba(90, 100, 112, 0.35);
+        }
+
+        .equation-term.struck::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            right: -4px;
+            top: 50%;
+            height: 1.5px;
+            background: var(--accent);
+            transform: translateY(-50%);
+        }
+
+        .equation-term.struck .ai-badge {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Inter', sans-serif;
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            white-space: nowrap;
+            opacity: 0.85;
+        }
+
+        .equation-operator {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            font-weight: 300;
+            color: rgba(90, 100, 112, 0.25);
+            line-height: 1;
+        }
+
+        .equation-result {
+            font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            font-weight: 600;
+            color: var(--silver-dark);
+            letter-spacing: 0.03em;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .equation-result::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .equation-message {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: var(--text-sm);
+            font-weight: 400;
+            color: rgba(90, 100, 112, 0.6);
+            letter-spacing: 0.08em;
+            line-height: 1.8;
+        }
+
+        .equation-message em {
+            font-style: normal;
+            color: var(--silver-dark);
+            font-weight: 500;
+        }
+
+        /* アニメーション */
+        .equation-visual-minimal.in-view .equation-term {
+            animation: eqFadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .equation-visual-minimal.in-view .equation-term:nth-child(1) { animation-delay: 0.1s; }
+        .equation-visual-minimal.in-view .equation-term:nth-child(3) { animation-delay: 0.25s; }
+        .equation-visual-minimal.in-view .equation-term:nth-child(5) { animation-delay: 0.4s; }
+        .equation-visual-minimal.in-view .equation-operator:nth-child(2) { animation-delay: 0.15s; }
+        .equation-visual-minimal.in-view .equation-operator:nth-child(4) { animation-delay: 0.3s; }
+        .equation-visual-minimal.in-view .equation-operator:nth-child(6) { animation-delay: 0.5s; }
+        .equation-visual-minimal.in-view .equation-result { animation-delay: 0.65s; }
+
+        .equation-visual-minimal.in-view .equation-operator,
+        .equation-visual-minimal.in-view .equation-result {
+            animation: eqFadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .equation-visual-minimal.in-view .equation-message {
+            animation: eqFadeIn 0.8s ease-out 0.9s forwards;
+            opacity: 0;
+        }
+
+        @keyframes eqFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 打ち消し線アニメーション */
+        .equation-visual-minimal.in-view .equation-term.struck::after {
+            animation: strikeThrough 0.4s ease-out forwards;
+            transform-origin: left center;
+            transform: translateY(-50%) scaleX(0);
+        }
+
+        .equation-visual-minimal.in-view .equation-term.struck:nth-child(1)::after { animation-delay: 0.5s; }
+        .equation-visual-minimal.in-view .equation-term.struck:nth-child(3)::after { animation-delay: 0.65s; }
+        .equation-visual-minimal.in-view .equation-term.struck:nth-child(5)::after { animation-delay: 0.8s; }
+
+        @keyframes strikeThrough {
+            to {
+                transform: translateY(-50%) scaleX(1);
+            }
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .equation-visual-minimal {
+                padding: 60px 20px;
+            }
+
+            .equation-formula {
+                gap: 12px 16px;
+                margin-bottom: 40px;
+            }
+
+            .equation-label {
+                margin-bottom: 36px;
+            }
+
+            .equation-term.struck .ai-badge {
+                font-size: var(--text-xs);
+                bottom: -18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .equation-formula {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .equation-operator {
+                transform: rotate(90deg);
+                font-size: 1.2rem;
+            }
+
+            .equation-operator:last-of-type {
+                transform: none;
+            }
+        }
+
+        /* ========== INTERACTIVE CHAT DEMO ========== */
+        .chat-demo-container {
+            position: relative;
+        }
+
+        .chat-demo-bg {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            right: -16px;
+            bottom: -16px;
+            background: #f2f2f2;
+            border-radius: var(--radius-lg);
+            z-index: 0;
+        }
+
+        .chat-demo-card {
+            position: relative;
+            z-index: 2;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 16px;
+            background: var(--gray-500);
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .chat-message.typing {
+            min-height: 48px;
+        }
+
+        /* ========== USER STORY SECTION ========== */
+        .user-story-section {
+            padding: 100px 40px;
+            background: linear-gradient(to bottom, var(--pure-white), var(--accent-light));
+        }
+
+        .user-story-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .user-story-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .user-story-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 32px;
+            align-items: stretch;
+        }
+
+        .story-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .story-card-before {
+            border-color: var(--gray-200);
+        }
+
+        .story-card-after {
+            background: var(--pure-white);
+            border-color: rgba(196, 150, 126, 0.3);
+            box-shadow: var(--shadow-lg), 0 0 0 1px rgba(196, 150, 126, 0.1);
+        }
+
+        .story-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .story-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xs);
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .story-card-before .story-card-icon {
+            background: var(--gray-100);
+            color: var(--gray-500);
+        }
+
+        .story-card-after .story-card-icon {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: white;
+            box-shadow: 0 4px 12px rgba(196, 150, 126, 0.3);
+        }
+
+        .story-card-label {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .story-card-before .story-card-label {
+            color: var(--gray-400);
+        }
+
+        .story-card-after .story-card-label {
+            color: var(--primary);
+        }
+
+        .story-item {
+            margin-bottom: 28px;
+        }
+
+        .story-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .story-item h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .story-card-before .story-item h4 {
+            color: var(--gray-700);
+        }
+
+        .story-card-after .story-item h4 {
+            color: var(--primary);
+        }
+
+        .story-item h4::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+        }
+
+        .story-card-before .story-item h4::before {
+            background: var(--gray-300);
+        }
+
+        .story-card-after .story-item h4::before {
+            background: var(--accent);
+        }
+
+        .story-item p {
+            font-size: var(--text-sm);
+            line-height: 1.8;
+            padding-left: 12px;
+        }
+
+        .story-card-before .story-item p {
+            color: var(--gray-500);
+        }
+
+        .story-card-after .story-item p {
+            color: var(--gray-600);
+            background: var(--accent-light);
+            padding: 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(196, 150, 126, 0.1);
+        }
+
+        .story-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-arrow-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--pure-white);
+            border: 4px solid var(--accent-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            font-size: var(--text-lg);
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        @media (max-width: 900px) {
+            .user-story-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .story-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* ========== COMPARISON TABLE ========== */
+        .comparison-table-section {
+            padding: 100px 40px;
+            background: var(--pure-white);
+        }
+
+        .comparison-table-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .comparison-table-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table thead th {
+            padding: 16px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .comparison-table thead th:first-child {
+            text-align: left;
+            font-size: var(--text-xs);
+            font-weight: 400;
+            color: var(--gray-400);
+            letter-spacing: 0.1em;
+        }
+
+        .comparison-table .o2-header {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: var(--text-sm);
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table .other-header {
+            color: var(--gray-400);
+            font-weight: 400;
+            font-size: var(--text-xs);
+            letter-spacing: 0.1em;
+        }
+
+        .comparison-table tbody tr {
+            border-bottom: 1px solid var(--gray-100);
+            transition: background 0.2s ease;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: var(--gray-100);
+        }
+
+        .comparison-table tbody td {
+            padding: 20px 24px;
+            text-align: center;
+        }
+
+        .comparison-table tbody td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--gray-700);
+            font-size: var(--text-sm);
+        }
+
+        .comparison-check {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: var(--text-lg);
+        }
+
+        .comparison-triangle {
+            color: var(--gray-400);
+            font-size: var(--text-lg);
+        }
+
+        .comparison-dash {
+            color: var(--gray-200);
+            font-size: var(--text-sm);
+        }
+
+        .comparison-note {
+            margin-top: 48px;
+            padding: 32px;
+            background: var(--accent-light);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(196, 150, 126, 0.1);
+            text-align: center;
+        }
+
+        .comparison-note p {
+            color: var(--gray-600);
+            font-size: var(--text-sm);
+            line-height: 1.9;
+        }
+
+        .comparison-note .highlight {
+            color: var(--accent);
+            font-weight: 700;
+            margin: 0 4px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-table-section {
+                padding: 60px 20px;
+            }
+
+            .comparison-table thead th,
+            .comparison-table tbody td {
+                padding: 12px 8px;
+                font-size: var(--text-xs);
+            }
+        }
+
+        /* ========== PRODUCT SCREENSHOTS / DEEP INSIGHTS ========== */
+        .deep-insights-section {
+            padding: 100px 40px;
+            background: var(--accent-light);
+        }
+
+        .deep-insights-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .deep-insights-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .deep-insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .insight-card {
+            background: var(--pure-white);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s ease;
+        }
+
+        .insight-card:hover {
+            border-color: rgba(196, 150, 126, 0.2);
+            box-shadow: var(--shadow-lg), 0 0 0 1px rgba(196, 150, 126, 0.05);
+        }
+
+        .insight-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .insight-badge {
+            padding: 4px 8px;
+            background: var(--accent-light);
+            border: 1px solid rgba(196, 150, 126, 0.2);
+            border-radius: var(--radius-sm);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: transform 0.2s ease;
+        }
+
+        .insight-card:hover .insight-badge {
+            transform: scale(1.1);
+        }
+
+        .insight-card-header h3 {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .insight-card-desc {
+            color: var(--gray-600);
+            font-size: var(--text-sm);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            min-height: 48px;
+        }
+
+        .insight-chat-frame {
+            background: #fafafa;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .insight-chat-header {
+            background: var(--pure-white);
+            padding: 12px;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .insight-chat-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: -0.05em;
+        }
+
+        .insight-chat-info h4 {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gray-700);
+            letter-spacing: 0.05em;
+        }
+
+        .insight-chat-status {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 8px;
+            color: var(--gray-400);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .insight-chat-status::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .insight-chat-body {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .insight-chat-message {
+            margin-bottom: 12px;
+            max-width: 90%;
+        }
+
+        .insight-chat-message.user {
+            margin-left: auto;
+        }
+
+        .insight-chat-message-label {
+            font-size: 10px;
+            color: var(--gray-400);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+
+        .insight-chat-message.user .insight-chat-message-label {
+            text-align: right;
+        }
+
+        .insight-chat-bubble {
+            padding: 12px 16px;
+            font-size: var(--text-sm);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .insight-chat-message.ai .insight-chat-bubble {
+            background: var(--pure-white);
+            border: 1px solid var(--gray-100);
+            color: var(--gray-700);
+            border-top-left-radius: 0;
+        }
+
+        .insight-chat-message.user .insight-chat-bubble {
+            background: var(--primary);
+            color: white;
+            border-top-right-radius: 0;
+        }
+
+        .insight-chat-footer {
+            padding: 12px;
+            background: var(--pure-white);
+            border-top: 1px solid var(--gray-100);
+            display: flex;
+            gap: 8px;
+        }
+
+        .insight-chat-input {
+            flex: 1;
+            background: var(--gray-100);
+            border-radius: var(--radius-sm);
+            height: 36px;
+            padding: 0 16px;
+            font-size: 9px;
+            color: var(--gray-400);
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+        }
+
+        .insight-chat-send {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 9px;
+        }
+
+        @media (max-width: 900px) {
+            .deep-insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========== TESTIMONIAL CAROUSEL ========== */
+        .testimonial-carousel-section {
+            padding: 100px 40px;
+            background: var(--accent-light);
+        }
+
+        .testimonial-carousel-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-carousel-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .testimonial-carousel-card {
+            background: var(--pure-white);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .testimonial-carousel-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gray-400);
+            letter-spacing: 0.05em;
+            border: 1px solid var(--gray-100);
+        }
+
+        .testimonial-text {
+            color: var(--gray-700);
+            line-height: 2;
+            font-weight: 500;
+            font-style: italic;
+            margin-bottom: 24px;
+            max-width: 600px;
+        }
+
+        .testimonial-author {
+            font-size: var(--text-sm);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .testimonial-type {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+        }
+
+        .testimonial-nav {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            right: 16px;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .testimonial-nav-btn {
+            pointer-events: auto;
+            width: 40px;
+            height: 40px;
+            background: var(--pure-white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gray-300);
+            transition: all 0.2s ease;
+        }
+
+        .testimonial-nav-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 32px;
+        }
+
+        .testimonial-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gray-200);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .testimonial-dot.active {
+            background: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-carousel-card {
+                padding: 32px 24px;
+            }
+
+            .testimonial-nav {
+                left: 8px;
+                right: 8px;
+            }
+        }
+
+        /* ========== FLOATING CTA ========== */
+        .floating-cta {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            z-index: 100;
+            width: 100%;
+            max-width: 380px;
+            padding: 0 16px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+
+        .floating-cta.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .floating-cta-card {
+            background: var(--primary);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--gray-700);
+            position: relative;
+        }
+
+        .floating-cta-close {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 40px;
+            height: 24px;
+            background: var(--pure-white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--gray-400);
+            letter-spacing: 0.05em;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .floating-cta-close:hover {
+            background: var(--gray-100);
+        }
+
+        .floating-cta-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: var(--text-xs);
+            letter-spacing: -0.05em;
+            flex-shrink: 0;
+        }
+
+        .floating-cta-content {
+            flex: 1;
+        }
+
+        .floating-cta-title {
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            letter-spacing: 0.05em;
+        }
+
+        .floating-cta-subtitle {
+            font-size: 9px;
+            color: var(--gray-300);
+            letter-spacing: 0.1em;
+        }
+
+        .floating-cta-btn {
+            padding: 8px 16px;
+            background: var(--pure-white);
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+            letter-spacing: 0.1em;
+            transition: all 0.2s ease;
+        }
+
+        .floating-cta-btn:hover {
+            background: var(--gray-100);
+        }
+
+        /* ========== QUICK DIAGNOSTIC MODAL ========== */
+        .diagnostic-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .diagnostic-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .diagnostic-modal-card {
+            background: var(--pure-white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 480px;
+            width: 100%;
+            padding: 32px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .diagnostic-modal.active .diagnostic-modal-card {
+            transform: scale(1);
+        }
+
+        .diagnostic-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gray-400);
+            letter-spacing: 0.05em;
+            transition: color 0.2s ease;
+        }
+
+        .diagnostic-close:hover {
+            color: var(--gray-600);
+        }
+
+        .diagnostic-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .diagnostic-badge span:first-child {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            border: 1px solid rgba(196, 150, 126, 0.3);
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            letter-spacing: 0.05em;
+        }
+
+        .diagnostic-badge span:last-child {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .diagnostic-progress {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .diagnostic-progress-bar {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--gray-200);
+            transition: background 0.3s ease;
+        }
+
+        .diagnostic-progress-bar.active {
+            background: var(--accent);
+        }
+
+        .diagnostic-question-num {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .diagnostic-question-text {
+            color: var(--gray-700);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .diagnostic-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .diagnostic-option {
+            width: 100%;
+            padding: 16px;
+            text-align: left;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--gray-200);
+            background: var(--pure-white);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .diagnostic-option:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        /* Diagnostic Result */
+        .diagnostic-result {
+            display: none;
+            text-align: center;
+            padding: 32px 0;
+        }
+
+        .diagnostic-result.active {
+            display: block;
+        }
+
+        .diagnostic-result-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-2xl);
+            font-weight: 700;
+        }
+
+        .diagnostic-result-title {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .diagnostic-result-type {
+            font-weight: 700;
+        }
+
+        .diagnostic-advice {
+            background: var(--gray-100);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .diagnostic-advice h4 {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gray-400);
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .diagnostic-advice p {
+            font-size: var(--text-sm);
+            color: var(--gray-700);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .diagnostic-advice-note {
+            font-size: 10px;
+            color: var(--gray-400);
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-200);
+            letter-spacing: 0.02em;
+        }
+
+        .diagnostic-cta-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            cursor: pointer;
+            font-size: var(--text-sm);
+            letter-spacing: 0.1em;
+            transition: background 0.2s ease;
+        }
+
+        .diagnostic-cta-btn:hover {
+            background: var(--accent-mid);
+        }
+
+        .diagnostic-questions {
+            display: block;
+        }
+
+        .diagnostic-questions.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">メインコンテンツへスキップ</a>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon"><img src="image.png" alt="O2CONNECTIVE"></div>
+                <div class="logo-text">
+                    O2CONNECTIVE
+                    <span>AI COUNSELOR</span>
+                </div>
+            </a>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="#services">サービス</a></li>
+                    <li><a href="#features">特徴</a></li>
+                    <li><a href="#why">選ばれる理由</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="#" class="btn btn-ghost">ログイン</a>
+                    <a href="#" class="btn btn-header-cta">お問い合わせ</a>
+                </div>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="メニュー" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul class="mobile-nav-links">
+            <li><a href="#services">サービス</a></li>
+            <li><a href="#features">特徴</a></li>
+            <li><a href="#why">選ばれる理由</a></li>
+            <li><a href="#testimonials">活用シーン</a></li>
+            <li><a href="#faq">よくある質問</a></li>
+        </ul>
+        <div class="mobile-nav-buttons">
+            <a href="#" class="btn btn-outline">ログイン</a>
+            <a href="#" class="btn btn-header-cta">お問い合わせ</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main id="main">
+    <section class="hero">
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-gradient hero-gradient-1"></div>
+        <div class="hero-gradient hero-gradient-2"></div>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge">AI COUNSELOR</div>
+                <h1 class="hero-title">
+                    もう一人で悩まなくていい。<br>
+                    <span class="accent">AIが寄り添う。</span>
+                </h1>
+                <p class="hero-description">
+                    「部下にどう声をかけたらいいのか…」その悩みに寄り添います。分析や読み解きはAIに任せて、あなたは相手と向き合うことに集中。タイプを知って終わりではなく、届け方のヒントまでサポートします。
+                </p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-accent btn-large-primary">無料で体験する</a>
+                    <a href="#" class="btn btn-secondary">資料ダウンロード</a>
+                </div>
+                <p class="hero-subtext">
+                    <span class="hero-subtext-accent">研修いらず</span>・<span class="hero-subtext-accent">読み解きいらず</span>・届けるのはあなた
+                </p>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-visual-stack">
+                    <div class="hero-card-back"></div>
+                    <div class="hero-card-mid"></div>
+                    <div class="hero-card">
+                        <div class="chat-header">
+                            <div class="chat-avatar">O2</div>
+                            <div class="chat-info">
+                                <h3>O2 カウンセラー</h3>
+                                <p>コミュニケーションをサポート</p>
+                            </div>
+                            <div class="chat-status">対話中</div>
+                        </div>
+                        <div class="chat-messages">
+                            <div class="chat-message ai">
+                                田中さんは「論理型」の思考パターンが強いようです。データや根拠を示すと納得しやすい傾向があります。
+                            </div>
+                            <div class="chat-message user">
+                                具体的にどう声をかければいいですか？
+                            </div>
+                            <div class="chat-message ai">
+                                「このプロジェクトの成功確率は過去データから85%です」のように、数字を交えた説明が効果的です。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section - Before/After Conceptual -->
+    <section class="process-section">
+        <div class="process-inner">
+            <div class="process-header">
+                <span class="section-tag section-tag-light">HOW IT WORKS</span>
+                <h2>「読み解く時間」を、<br>「届ける時間」に。</h2>
+                <p>分析・研修・読み解きはAIに任せて、あなたは相手と向き合うことに集中できます</p>
+            </div>
+
+            <!-- Equation Visual Minimal - 引き算式表現 -->
+            <div class="equation-visual-minimal">
+                <div class="equation-inner">
+                    <div class="equation-label">What AI Does For You</div>
+                    <div class="equation-formula">
+                        <span class="equation-term struck">
+                            研修
+                            <span class="ai-badge">AI</span>
+                        </span>
+                        <span class="equation-operator">+</span>
+                        <span class="equation-term struck">
+                            分析
+                            <span class="ai-badge">AI</span>
+                        </span>
+                        <span class="equation-operator">+</span>
+                        <span class="equation-term struck">
+                            読み解き
+                            <span class="ai-badge">AI</span>
+                        </span>
+                        <span class="equation-operator">=</span>
+                        <span class="equation-result">届ける</span>
+                    </div>
+                    <p class="equation-message">
+                        あなたは<em>「届ける」</em>だけに集中できる
+                    </p>
+                </div>
+            </div>
+
+            <!-- Value Props -->
+            <div class="value-props reveal">
+                <div class="value-prop">
+                    <h4>研修いらず</h4>
+                    <p>心理学の専門知識がなくても大丈夫</p>
+                </div>
+                <div class="value-prop">
+                    <h4>読み解きいらず</h4>
+                    <p>診断結果の解釈に悩む必要なし</p>
+                </div>
+                <div class="value-prop">
+                    <h4>あなたの想いはそのまま</h4>
+                    <p>届け方のヒントを得て、自分の言葉で</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Story Section - Before/After Comparison -->
+    <section class="user-story-section" id="user-story">
+        <div class="user-story-inner">
+            <div class="user-story-header reveal">
+                <span class="section-tag">背景</span>
+                <h2 class="section-title">現場の違和感、その正体。</h2>
+                <p class="section-description">
+                    それは能力不足ではなく、個々の「思考回路」のズレから生じています。
+                </p>
+            </div>
+
+            <div class="user-story-grid">
+                <div class="story-card story-card-before reveal">
+                    <div class="story-card-header">
+                        <div class="story-card-icon">課題</div>
+                        <h3 class="story-card-label">以前</h3>
+                    </div>
+                    <div class="story-item">
+                        <h4>静かなる退職</h4>
+                        <p>上司とのすれ違いによる意欲減退。優秀な人材が、前触れなく組織を去っていく。</p>
+                    </div>
+                    <div class="story-item">
+                        <h4>生産性の停滞</h4>
+                        <p>不要な気遣いや指示の出し直しによる手戻り。本来不要な「調整」に時間を奪われる。</p>
+                    </div>
+                </div>
+
+                <div class="story-arrow">
+                    <div class="story-arrow-circle">→</div>
+                </div>
+
+                <div class="story-card story-card-after reveal">
+                    <div class="story-card-header">
+                        <div class="story-card-icon">解決</div>
+                        <h3 class="story-card-label">導入後</h3>
+                    </div>
+                    <div class="story-item">
+                        <h4>確かな補助線</h4>
+                        <p>相手のタイプを知ることで「今、何を話すべきか」が明確に。準備が整い、自信を持って向き合える。</p>
+                    </div>
+                    <div class="story-item">
+                        <h4>組織の回路同期</h4>
+                        <p>感性に響く言葉選びで納得感が劇的に向上。心理的安全性が保たれ、本音での対話が活性化する。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table Section -->
+    <section class="comparison-table-section" id="comparison">
+        <div class="comparison-table-inner">
+            <div class="comparison-table-header reveal">
+                <span class="section-tag">比較</span>
+                <h2 class="section-title">既存の手法との決定的な違い</h2>
+                <p class="section-description">
+                    「数字を見て解釈する」から「具体的な対話へ」
+                </p>
+            </div>
+
+            <div class="reveal">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th class="o2-header">AIカウンセラー O2CONNECTIVE</th>
+                            <th class="other-header">従来の診断</th>
+                            <th class="other-header">経験と勘</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>具体的アクションの提案</td>
+                            <td><span class="comparison-check">◯</span></td>
+                            <td><span class="comparison-dash">―</span></td>
+                            <td><span class="comparison-dash">―</span></td>
+                        </tr>
+                        <tr>
+                            <td>24時間365日の即時相談</td>
+                            <td><span class="comparison-check">◯</span></td>
+                            <td><span class="comparison-dash">―</span></td>
+                            <td><span class="comparison-dash">―</span></td>
+                        </tr>
+                        <tr>
+                            <td>専門知識・研修が不要</td>
+                            <td><span class="comparison-check">◯</span></td>
+                            <td><span class="comparison-dash">―</span></td>
+                            <td><span class="comparison-dash">―</span></td>
+                        </tr>
+                        <tr>
+                            <td>優劣をつけない記述評価</td>
+                            <td><span class="comparison-check">◯</span></td>
+                            <td><span class="comparison-dash">―</span></td>
+                            <td><span class="comparison-triangle">△</span></td>
+                        </tr>
+                        <tr>
+                            <td>管理職の学習コスト</td>
+                            <td><span class="comparison-dash">―</span></td>
+                            <td><span class="comparison-triangle">△</span></td>
+                            <td><span class="comparison-triangle">△</span></td>
+                        </tr>
+                        <tr>
+                            <td>偏差値・スコアによる判断</td>
+                            <td><span class="comparison-dash">―</span></td>
+                            <td><span class="comparison-triangle">△</span></td>
+                            <td><span class="comparison-dash">―</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="comparison-note">
+                    <p>診断結果を読み解くための「勉強」はもう不要です。<br>
+                    AIが個々の思考回路に合わせた<span class="highlight">「今、かけるべき言葉」</span>を直接提示します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Insights / Product Screenshots Section -->
+    <section class="deep-insights-section" id="deep-insights">
+        <div class="deep-insights-inner">
+            <div class="deep-insights-header reveal">
+                <span class="section-tag">DEEP INSIGHTS</span>
+                <h2 class="section-title">「解釈」を捨て、「対話」に集中する。</h2>
+                <p class="section-description">
+                    診断は一度。活用は永遠に。<br>
+                    複雑な管理画面を監視する手間から、組織を解放します。
+                </p>
+            </div>
+
+            <div class="deep-insights-grid">
+                <!-- Card 1: 対話の補助線 -->
+                <div class="insight-card reveal">
+                    <div class="insight-card-header">
+                        <span class="insight-badge">ADVICE</span>
+                        <h3>対話の補助線</h3>
+                    </div>
+                    <p class="insight-card-desc">日常の対話の中で相談するだけで、相手の特性に合わせた最適な言葉選びを直接提示します。</p>
+                    <div class="insight-chat-frame">
+                        <div class="insight-chat-header">
+                            <div class="insight-chat-avatar">O2</div>
+                            <div class="insight-chat-info">
+                                <h4>AIカウンセラー O2CONNECTIVE</h4>
+                                <div class="insight-chat-status">Online</div>
+                            </div>
+                        </div>
+                        <div class="insight-chat-body">
+                            <div class="insight-chat-message user">
+                                <div class="insight-chat-message-label">YOU</div>
+                                <div class="insight-chat-bubble">田中さんへのフィードバック、どう伝えればいい？</div>
+                            </div>
+                            <div class="insight-chat-message ai">
+                                <div class="insight-chat-message-label">O2CONNECTIVE</div>
+                                <div class="insight-chat-bubble">田中さんの思考回路に基づき、対話の補助線を引きます。
+
+田中さんは「納得重視型」の特性を持っています。
+結論を急ぐよりも、なぜその決定に至ったかの根拠を客観的な事実に基づいて提示してください。
+
+「期待している」という感情的な言葉よりも、「このデータの精度が非常に高い」という技術的評価が思考の同期を早めます。</div>
+                            </div>
+                        </div>
+                        <div class="insight-chat-footer">
+                            <div class="insight-chat-input">MESSAGE...</div>
+                            <div class="insight-chat-send">SEND</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: 思考特性の理解 -->
+                <div class="insight-card reveal">
+                    <div class="insight-card-header">
+                        <span class="insight-badge">INSIGHT</span>
+                        <h3>思考特性の理解</h3>
+                    </div>
+                    <p class="insight-card-desc">120問の診断から導き出された「思考の癖」を整理。優劣ではなく違いとして受容できます。</p>
+                    <div class="insight-chat-frame">
+                        <div class="insight-chat-header">
+                            <div class="insight-chat-avatar">O2</div>
+                            <div class="insight-chat-info">
+                                <h4>AIカウンセラー O2CONNECTIVE</h4>
+                                <div class="insight-chat-status">Online</div>
+                            </div>
+                        </div>
+                        <div class="insight-chat-body">
+                            <div class="insight-chat-message user">
+                                <div class="insight-chat-message-label">YOU</div>
+                                <div class="insight-chat-bubble">メンバーそれぞれの思考特性を教えて。</div>
+                            </div>
+                            <div class="insight-chat-message ai">
+                                <div class="insight-chat-message-label">O2CONNECTIVE</div>
+                                <div class="insight-chat-bubble">120問の診断データから抽出された、各メンバーの思考特性マップです。
+
+佐藤：結論優先型
+→ 合理性を重視。前置きを省くことでスムーズに同期。
+
+鈴木：過程共有型
+→ 共感を重視。事実よりも「意図」を伝えることで信頼構築。
+
+高橋：直感駆動型
+→ スピードを重視。詳細な説明よりも全体像の共有を優先。</div>
+                            </div>
+                        </div>
+                        <div class="insight-chat-footer">
+                            <div class="insight-chat-input">MESSAGE...</div>
+                            <div class="insight-chat-send">SEND</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: チーム構造分析 -->
+                <div class="insight-card reveal">
+                    <div class="insight-card-header">
+                        <span class="insight-badge">STRUCTURE</span>
+                        <h3>チーム構造分析</h3>
+                    </div>
+                    <p class="insight-card-desc">チーム内の「構造的なズレ」を可視化。不定期な診断を基に、未然に対策を打つことができます。</p>
+                    <div class="insight-chat-frame">
+                        <div class="insight-chat-header">
+                            <div class="insight-chat-avatar">O2</div>
+                            <div class="insight-chat-info">
+                                <h4>AIカウンセラー O2CONNECTIVE</h4>
+                                <div class="insight-chat-status">Online</div>
+                            </div>
+                        </div>
+                        <div class="insight-chat-body">
+                            <div class="insight-chat-message user">
+                                <div class="insight-chat-message-label">YOU</div>
+                                <div class="insight-chat-bubble">このチームでプロジェクトを進める際の注意点は？</div>
+                            </div>
+                            <div class="insight-chat-message ai">
+                                <div class="insight-chat-message-label">O2CONNECTIVE</div>
+                                <div class="insight-chat-bubble">現在のチーム構成に基づいた「構造的な摩擦リスク」を整理しました。
+
+【思考回路の競合リスク】
+「結論優先」の佐藤さんと「過程共有」の鈴木さんの間で、指示の細かさによるズレが生じやすい構造です。
+
+【対策】
+鈴木さんが納得するまでの対話時間を、佐藤さんの工数として最初から組み込んでください。この補助線一本で、チーム全体の停滞を防げます。</div>
+                            </div>
+                        </div>
+                        <div class="insight-chat-footer">
+                            <div class="insight-chat-input">MESSAGE...</div>
+                            <div class="insight-chat-send">SEND</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: 対話の準備 -->
+                <div class="insight-card reveal">
+                    <div class="insight-card-header">
+                        <span class="insight-badge">GUIDE</span>
+                        <h3>対話の準備</h3>
+                    </div>
+                    <p class="insight-card-desc">面談前に相談すれば、誰に、いつ、どのような問いを投げかけるべきかを具体的にガイドします。</p>
+                    <div class="insight-chat-frame">
+                        <div class="insight-chat-header">
+                            <div class="insight-chat-avatar">O2</div>
+                            <div class="insight-chat-info">
+                                <h4>AIカウンセラー O2CONNECTIVE</h4>
+                                <div class="insight-chat-status">Online</div>
+                            </div>
+                        </div>
+                        <div class="insight-chat-body">
+                            <div class="insight-chat-message user">
+                                <div class="insight-chat-message-label">YOU</div>
+                                <div class="insight-chat-bubble">明日の対話で、特に気を使うべき点は？</div>
+                            </div>
+                            <div class="insight-chat-message ai">
+                                <div class="insight-chat-message-label">O2CONNECTIVE</div>
+                                <div class="insight-chat-bubble">対話相手の特性に合わせた推奨アジェンダを作成しました。
+
+相手は自己実現への意欲が非常に強いため、目先の業務連絡は最小限に留めてください。
+
+「一年後のなりたい姿」と「今の業務」の結びつきを言語化する時間を中心に据えることを推奨します。これが最も深い同期を生むトピックです。</div>
+                            </div>
+                        </div>
+                        <div class="insight-chat-footer">
+                            <div class="insight-chat-input">MESSAGE...</div>
+                            <div class="insight-chat-send">SEND</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiation Section -->
+    <section class="differentiation" id="differentiation">
+        <div class="diff-inner">
+            <div class="diff-header reveal">
+                <span class="section-tag">こんな経験ありませんか？</span>
+                <h2>診断で終わらない。<br>だから、行動が変わる。</h2>
+                <p>従来の特性検査はタイプを知って終わり。O2CONNECTIVEは「次にどうするか」まで教えてくれます。</p>
+            </div>
+
+            <div class="diff-simple">
+                <div class="diff-problem reveal">
+                    <p class="diff-problem-label">従来の特性検査</p>
+                    <ul class="diff-problem-list">
+                        <li>「あなたはENTJタイプです」「強みは戦略性です」<br><span class="diff-problem-question">…で、どうすれば？</span></li>
+                        <li>結果を読み解き、相手への対応を自分で考える必要がある</li>
+                        <li>「わかったけど、結局どう声をかければいいの？」</li>
+                    </ul>
+                    <p class="diff-problem-conclusion">知識は増えても、現場で使えない。</p>
+                </div>
+
+                <div class="diff-solution reveal">
+                    <p class="diff-solution-label">O2CONNECTIVEなら</p>
+                    <p class="diff-solution-text">
+                        相手の思考タイプに合わせた<strong>声かけのヒント</strong>をAIが提案。<br>
+                        診断結果の解釈に悩む時間をゼロに。<br>
+                        1on1の前にサッと確認するだけで、心の準備ができた状態で相手と向き合えます。
+                    </p>
+                    <p class="diff-solution-tagline">準備はAI、届けるのはあなた。</p>
+                </div>
+            </div>
+
+            <div class="diff-header reveal" style="margin-bottom: 40px;">
+                <span class="section-tag">REAL SCENES</span>
+                <h2>明日の1on1で、すぐ使える</h2>
+                <p>具体的なシーンで、どう活用できるかをご紹介します</p>
+            </div>
+
+            <div class="scene-cards">
+                <div class="scene-card reveal">
+                    <div class="scene-timing">1on1の5分前</div>
+                    <h3 class="scene-title">やる気が見えない部下との面談</h3>
+                    <div class="scene-example">
+                        <div class="scene-example-label">O2からの提案</div>
+                        <p>「田中さんは『承認欲求型』です。まず最近の成果を具体的に褒めてから本題に入ると、心を開きやすくなります」</p>
+                    </div>
+                    <div class="scene-result">
+                        相手の態度が柔らかくなり、本音を引き出せた
+                    </div>
+                </div>
+
+                <div class="scene-card reveal">
+                    <div class="scene-timing">急な相談対応</div>
+                    <h3 class="scene-title">突然の退職相談を受けたとき</h3>
+                    <div class="scene-example">
+                        <div class="scene-example-label">O2からの提案</div>
+                        <p>「佐藤さんは『論理型』です。感情的な引き止めより、キャリアプランを論理的に示す方が響きます」</p>
+                    </div>
+                    <div class="scene-result">
+                        冷静な対話ができ、継続の選択肢を提示できた
+                    </div>
+                </div>
+
+                <div class="scene-card reveal">
+                    <div class="scene-timing">チーム会議の前</div>
+                    <h3 class="scene-title">意見が対立するメンバー間の調整</h3>
+                    <div class="scene-example">
+                        <div class="scene-example-label">O2からの提案</div>
+                        <p>「山田さんは『慎重型』、鈴木さんは『即断型』。山田さんには事前資料を、鈴木さんには結論から伝えると効果的です」</p>
+                    </div>
+                    <div class="scene-result">
+                        お互いの違いを理解し、建設的な議論に発展した
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header reveal">
+            <span class="section-tag">SERVICES</span>
+            <h2 class="section-title">多様なシーンで活用できる<br>5つのソリューション</h2>
+            <p class="section-description">
+                企業、学校、介護施設、外国人労働者、そして家族まで。あらゆる場面でコミュニケーションを支援します。
+            </p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=200&fit=crop" alt="ビジネスミーティング">
+                </div>
+                <span class="service-badge">FOR BIZ</span>
+                <h3 class="service-title">O2CONNECTIVE for Biz</h3>
+                <p class="service-description">
+                    組織の生産性向上と人材定着をサポート。早期離職の予防、採用ミスマッチの削減に貢献します。
+                </p>
+                <p class="service-features">離職予防 / 採用支援 / 組織分析</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400&h=200&fit=crop" alt="学校の教室">
+                </div>
+                <span class="service-badge">FOR SCHOOL</span>
+                <h3 class="service-title">O2CONNECTIVE for School</h3>
+                <p class="service-description">
+                    生徒一人ひとりの個性を伸ばし、いじめ・不登校の予防に。教員・保護者の理解促進もサポート。
+                </p>
+                <p class="service-features">個性理解 / いじめ予防 / 保護者連携</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=400&h=200&fit=crop" alt="介護の様子">
+                </div>
+                <span class="service-badge">FOR CARE</span>
+                <h3 class="service-title">O2CONNECTIVE for Care</h3>
+                <p class="service-description">
+                    介護・福祉の現場で、利用者とスタッフ間のコミュニケーションを支援。適性診断も可能です。
+                </p>
+                <p class="service-features">利用者理解 / 適性診断 / チーム連携</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=200&fit=crop" alt="多様な人々">
+                </div>
+                <span class="service-badge">FOR FOREIGNER</span>
+                <h3 class="service-title">O2CONNECTIVE for Foreigner</h3>
+                <p class="service-description">
+                    ベトナム語・インドネシア語など多言語対応。外国人労働者とのギャップを解消します。
+                </p>
+                <p class="service-features">多言語対応 / 文化理解 / マネジメント支援</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=200&fit=crop" alt="家族の団らん">
+                </div>
+                <span class="service-badge">FAMILY</span>
+                <h3 class="service-title">O2CONNECTIVE for Family</h3>
+                <p class="service-description">
+                    家族間の「思考OS」の違いを可視化し、コミュニケーションギャップを埋めて相互理解を深めます。
+                </p>
+                <p class="service-features">家族診断 / 相互理解 / 関係改善</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-inner">
+            <div class="features-grid">
+                <div class="features-content reveal">
+                    <span class="section-tag">FEATURES</span>
+                    <h2>「思考OS」を可視化し、<br>最適なアプローチを導く</h2>
+                    <p>
+                        人はそれぞれ異なる思考パターンを持っています。O2CONNECTIVEはAIの力でその違いを分析し、相手に響くコミュニケーション方法を自動で提案します。
+                    </p>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <h4>言葉選びをアシスト</h4>
+                            <p>相手の思考タイプに合わせた声かけのヒントを提案。あなたの言葉がより届きやすくなります。</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>経験を補うサポート</h4>
+                            <p>ベテランの知見をAIが整理。新任リーダーも自信を持ってチームと向き合えます。</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>思考パターンの可視化</h4>
+                            <p>チームメンバーの思考スタイルを見える化。相互理解の第一歩を科学的にサポート。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="features-visual reveal">
+                    <div class="features-image-stack">
+                        <div class="features-image-accent"></div>
+                        <div class="features-image-frame">
+                            <img src="https://images.unsplash.com/photo-1531537571171-a707bf2683da?w=600&h=500&fit=crop" alt="チームで対話する様子" class="features-image">
+                        </div>
+                        <div class="features-caption">
+                            <div class="caption-icon"><i data-lucide="brain"></i></div>
+                            <p>相手の「思考の違い」を理解することで、より深いコミュニケーションが生まれます</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="why" id="why">
+        <div class="section-header reveal">
+            <span class="section-tag">WHY O2</span>
+            <h2 class="section-title">選ばれる4つの理由</h2>
+        </div>
+        <div class="why-container">
+            <div class="why-grid">
+                <div class="why-card reveal">
+                    <div class="why-number">01</div>
+                    <h3 class="why-title">想いを届けやすく</h3>
+                    <p class="why-description">
+                        相手に響く言葉のヒントをAIが提案。あなたの想いをより伝わりやすい形で届けるお手伝いをします。
+                    </p>
+                </div>
+                <div class="why-card reveal">
+                    <div class="why-number">02</div>
+                    <h3 class="why-title">マネジメントの標準化</h3>
+                    <p class="why-description">
+                        熟練マネージャーだけの「高度な関わり」を、新任リーダーでもAIアシストで再現可能にします。
+                    </p>
+                </div>
+                <div class="why-card reveal">
+                    <div class="why-number">03</div>
+                    <h3 class="why-title">安心・安全な環境</h3>
+                    <p class="why-description">
+                        プライバシーを厳重に保護。誰にも言えない悩みも、安心して打ち明けられる環境を提供します。
+                    </p>
+                </div>
+                <div class="why-card reveal">
+                    <div class="why-number">04</div>
+                    <h3 class="why-title">24時間いつでも対応</h3>
+                    <p class="why-description">
+                        夜中に不安になっても大丈夫。AIカウンセラーはいつでもあなたの話を聴く準備ができています。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header reveal">
+            <span class="section-tag">USE CASES</span>
+            <h2 class="section-title">こんな課題を解決します</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal">
+                <span class="testimonial-badge">FOR BIZ</span>
+                <p class="testimonial-text">
+                    「部下の考えていることがわからない」「どう声をかければいいかわからない」そんな悩みを抱えるマネージャーに、相手の思考スタイルに合わせた最適なアプローチを提案します。
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">B</div>
+                    <div class="testimonial-info">
+                        <h4>マネジメント改善</h4>
+                        <p>離職予防・組織活性化</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal">
+                <span class="testimonial-badge">FOR SCHOOL</span>
+                <p class="testimonial-text">
+                    「生徒の本音が見えない」「なぜ反応してくれないのか」といった教育現場の悩みを、AIによる思考分析で解消。一人ひとりに響く指導を実現します。
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">S</div>
+                    <div class="testimonial-info">
+                        <h4>個別最適な指導</h4>
+                        <p>不登校予防・個性理解</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal">
+                <span class="testimonial-badge">FAMILY</span>
+                <p class="testimonial-text">
+                    「なぜ伝わらないのか」「どうしてすれ違うのか」家族間のコミュニケーションギャップを、思考OSの違いとして可視化。相互理解の第一歩を踏み出せます。
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">F</div>
+                    <div class="testimonial-info">
+                        <h4>家族の相互理解</h4>
+                        <p>関係改善・絆づくり</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Carousel Section -->
+    <section class="testimonial-carousel-section" id="voices">
+        <div class="testimonial-carousel-inner">
+            <div class="testimonial-carousel-header reveal">
+                <h2 class="section-title" style="color: var(--primary);">利用者の声</h2>
+                <p class="section-description">
+                    先行トライアル・モニターに参加された方々の感想
+                </p>
+            </div>
+
+            <div class="testimonial-carousel-card reveal">
+                <div class="testimonial-carousel-content" id="testimonialContent">
+                    <div class="testimonial-avatar">利用者</div>
+                    <p class="testimonial-text" id="testimonialText">"新任マネージャーの育成に課題を感じていましたが、このツールのおかげで1on1の質が均一化されつつあると感じています。具体的なアドバイスが得られるのが良いですね。"</p>
+                    <div class="testimonial-author" id="testimonialAuthor">IT企業 人事担当</div>
+                    <div class="testimonial-type" id="testimonialType">トライアル利用</div>
+                </div>
+
+                <div class="testimonial-nav">
+                    <button class="testimonial-nav-btn" id="testimonialPrev">前へ</button>
+                    <button class="testimonial-nav-btn" id="testimonialNext">次へ</button>
+                </div>
+            </div>
+
+            <div class="testimonial-dots" id="testimonialDots">
+                <button class="testimonial-dot active" data-index="0"></button>
+                <button class="testimonial-dot" data-index="1"></button>
+                <button class="testimonial-dot" data-index="2"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="faq-inner">
+            <div class="section-header reveal">
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title">よくある質問</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item reveal">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>導入にはどのくらいの時間がかかりますか？</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            アカウント作成後、すぐにご利用いただけます。初期設定は最短10分程度で完了し、その日から1on1やチームミーティングでお使いいただけます。大規模な導入の場合は、オンボーディングサポートもご用意しています。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>料金体系はどのようになっていますか？</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            ご利用人数やプランに応じた月額制となっております。まずは無料トライアルでお試しいただき、導入効果を実感していただいてからご契約いただけます。詳しくはお問い合わせください。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>既存の人事システムとの連携は可能ですか？</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            主要な人事システム、グループウェア、コミュニケーションツールとの連携に対応しています。API連携やSSO（シングルサインオン）にも対応しており、既存の業務フローにスムーズに組み込むことができます。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>個人情報やデータのセキュリティは大丈夫ですか？</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            すべてのデータは暗号化されて保存され、厳格なセキュリティ基準に準拠しています。また、診断データへのアクセス権限を細かく設定でき、組織のプライバシーポリシーに合わせた運用が可能です。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>無料トライアルではどこまで使えますか？</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            無料トライアルでは、思考タイプ診断、AIによる声かけ提案、1on1準備機能など、主要な機能をすべてお試しいただけます。トライアル期間中のサポートも無料で提供しています。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-bg-image">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600&h=600&fit=crop" alt="">
+        </div>
+        <div class="cta-overlay"></div>
+        <div class="cta-inner reveal">
+            <h2 class="cta-title">マネジメントの悩み、<br>一人で抱えていませんか？</h2>
+            <p class="cta-description">
+                O2CONNECTIVEがあなたの傍に。<br>
+                明日の1on1から、対話が変わります。
+            </p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary btn-large-primary">無料で体験する</a>
+                <a href="#" class="btn btn-secondary">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon"><img src="image.png" alt="O2CONNECTIVE"></div>
+                        <div class="logo-text">
+                            O2CONNECTIVE
+                            <span>AI COUNSELOR</span>
+                        </div>
+                    </a>
+                    <p>
+                        AIの力で、人と人の心をつなぐ。<br>
+                        思考の違いを理解し、より良い関係を。
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Twitter">𝕏</a>
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>サービス</h4>
+                    <ul>
+                        <li><a href="#">O2CONNECTIVE for Biz</a></li>
+                        <li><a href="#">O2CONNECTIVE for School</a></li>
+                        <li><a href="#">O2CONNECTIVE for Care</a></li>
+                        <li><a href="#">O2CONNECTIVE for Foreigner</a></li>
+                        <li><a href="#">O2CONNECTIVE for Family</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>サポート</h4>
+                    <ul>
+                        <li><a href="#">導入事例</a></li>
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">お問い合わせ</a></li>
+                        <li><a href="#">資料ダウンロード</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>会社情報</h4>
+                    <ul>
+                        <li><a href="#">会社概要</a></li>
+                        <li><a href="#">採用情報</a></li>
+                        <li><a href="#">ニュース</a></li>
+                        <li><a href="#">パートナー募集</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 O2CONNECTIVE Inc.</p>
+                <div class="footer-links">
+                    <a href="#">利用規約</a>
+                    <a href="#">プライバシーポリシー</a>
+                    <a href="#">セキュリティ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA -->
+    <div class="floating-cta" id="floatingCta">
+        <div class="floating-cta-card">
+            <button class="floating-cta-close" id="floatingCtaClose">閉じる</button>
+            <div class="floating-cta-icon">O2</div>
+            <div class="floating-cta-content">
+                <div class="floating-cta-title">デモ体験・お問い合わせ</div>
+                <div class="floating-cta-subtitle">思考回路の同期を体験する</div>
+            </div>
+            <button class="floating-cta-btn" id="floatingCtaBtn">開始</button>
+        </div>
+    </div>
+
+    <!-- Quick Diagnostic Modal -->
+    <div class="diagnostic-modal" id="diagnosticModal">
+        <div class="diagnostic-modal-card">
+            <div class="diagnostic-close" id="diagnosticClose">閉じる [×]</div>
+
+            <div class="diagnostic-questions" id="diagnosticQuestions">
+                <div class="diagnostic-badge">
+                    <span>簡易診断</span>
+                    <span>デモ体験</span>
+                </div>
+
+                <div class="diagnostic-progress" id="diagnosticProgress">
+                    <div class="diagnostic-progress-bar active"></div>
+                    <div class="diagnostic-progress-bar"></div>
+                    <div class="diagnostic-progress-bar"></div>
+                </div>
+
+                <h3 class="diagnostic-question-num" id="diagnosticQuestionNum">質問 1 / 3</h3>
+                <p class="diagnostic-question-text" id="diagnosticQuestionText">新しいプロジェクトの説明を受けるとき、どちらを重視しますか？</p>
+
+                <div class="diagnostic-options" id="diagnosticOptions">
+                    <button class="diagnostic-option" data-value="0">全体像と最終ゴール</button>
+                    <button class="diagnostic-option" data-value="1">具体的な手順とデータ</button>
+                </div>
+            </div>
+
+            <div class="diagnostic-result" id="diagnosticResult">
+                <div class="diagnostic-result-icon" id="diagnosticResultIcon">O2</div>
+                <h3 class="diagnostic-result-title">あなたは「<span class="diagnostic-result-type" id="diagnosticResultType">直感型</span>」タイプ</h3>
+
+                <div class="diagnostic-advice">
+                    <h4>AIアドバイス</h4>
+                    <p id="diagnosticAdviceText">全体像やビジョンから伝えると響きやすいです。「このプロジェクトで実現したい未来」を共有することで、モチベーションが高まります。</p>
+                    <div class="diagnostic-advice-note">これはデモ結果です。製品版ではより詳細な分析とアドバイスを提供します。</div>
+                </div>
+
+                <button class="diagnostic-cta-btn" id="diagnosticCtaBtn">製品版の詳細を見る</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Header scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 80) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    // Close mobile menu if open
+                    mobileMenuBtn.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                    button.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // Stagger animations
+        document.querySelectorAll('.service-card, .testimonial-card, .why-card, .comparison-card, .value-prop, .diff-card, .scene-card, .faq-item').forEach((card, i) => {
+            card.style.transitionDelay = `${i * 0.08}s`;
+        });
+
+        // Equation Visual Minimal - scroll trigger
+        const equationVisual = document.querySelector('.equation-visual-minimal');
+        if (equationVisual) {
+            const triggerEquation = () => {
+                const rect = equationVisual.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    equationVisual.classList.add('in-view');
+                    window.removeEventListener('scroll', triggerEquation);
+                }
+            };
+            window.addEventListener('scroll', triggerEquation);
+            window.addEventListener('load', triggerEquation);
+        }
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // ========== TESTIMONIAL CAROUSEL ==========
+        const testimonials = [
+            {
+                text: '"新任マネージャーの育成に課題を感じていましたが、このツールのおかげで1on1の質が均一化されつつあると感じています。具体的なアドバイスが得られるのが良いですね。"',
+                author: 'IT企業 人事担当',
+                type: 'トライアル利用'
+            },
+            {
+                text: '"生徒一人ひとりとの関わり方に悩んでいましたが、客観的な分析があることで、冷静に向き合えるようになりました。保護者の方への説明もしやすくなりそうです。"',
+                author: '中学校 教員',
+                type: 'モニター利用'
+            },
+            {
+                text: '"チームメンバーとの相性で悩んでいましたが、単なる相性の問題ではなく「思考回路の違い」だと分かり、接し方を変えるきっかけになりました。"',
+                author: '営業職 マネージャー',
+                type: 'トライアル利用'
+            }
+        ];
+
+        let currentTestimonialIndex = 0;
+        const testimonialText = document.getElementById('testimonialText');
+        const testimonialAuthor = document.getElementById('testimonialAuthor');
+        const testimonialType = document.getElementById('testimonialType');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        const testimonialPrev = document.getElementById('testimonialPrev');
+        const testimonialNext = document.getElementById('testimonialNext');
+
+        function updateTestimonial(index) {
+            currentTestimonialIndex = index;
+            const t = testimonials[index];
+            testimonialText.textContent = t.text;
+            testimonialAuthor.textContent = t.author;
+            testimonialType.textContent = t.type;
+
+            testimonialDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        if (testimonialPrev && testimonialNext) {
+            testimonialPrev.addEventListener('click', () => {
+                const newIndex = (currentTestimonialIndex - 1 + testimonials.length) % testimonials.length;
+                updateTestimonial(newIndex);
+            });
+
+            testimonialNext.addEventListener('click', () => {
+                const newIndex = (currentTestimonialIndex + 1) % testimonials.length;
+                updateTestimonial(newIndex);
+            });
+        }
+
+        testimonialDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => updateTestimonial(index));
+        });
+
+        // ========== FLOATING CTA ==========
+        const floatingCta = document.getElementById('floatingCta');
+        const floatingCtaClose = document.getElementById('floatingCtaClose');
+        const floatingCtaBtn = document.getElementById('floatingCtaBtn');
+        let floatingCtaDismissed = false;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500 && !floatingCtaDismissed) {
+                floatingCta.classList.add('visible');
+            } else if (window.scrollY <= 500) {
+                floatingCta.classList.remove('visible');
+            }
+        });
+
+        if (floatingCtaClose) {
+            floatingCtaClose.addEventListener('click', () => {
+                floatingCtaDismissed = true;
+                floatingCta.classList.remove('visible');
+            });
+        }
+
+        // ========== QUICK DIAGNOSTIC MODAL ==========
+        const diagnosticModal = document.getElementById('diagnosticModal');
+        const diagnosticClose = document.getElementById('diagnosticClose');
+        const diagnosticQuestions = document.getElementById('diagnosticQuestions');
+        const diagnosticResult = document.getElementById('diagnosticResult');
+        const diagnosticProgress = document.getElementById('diagnosticProgress');
+        const diagnosticQuestionNum = document.getElementById('diagnosticQuestionNum');
+        const diagnosticQuestionText = document.getElementById('diagnosticQuestionText');
+        const diagnosticOptions = document.getElementById('diagnosticOptions');
+        const diagnosticResultType = document.getElementById('diagnosticResultType');
+        const diagnosticResultIcon = document.getElementById('diagnosticResultIcon');
+        const diagnosticAdviceText = document.getElementById('diagnosticAdviceText');
+        const diagnosticCtaBtn = document.getElementById('diagnosticCtaBtn');
+
+        const questions = [
+            {
+                text: '新しいプロジェクトの説明を受けるとき、どちらを重視しますか？',
+                options: ['全体像と最終ゴール', '具体的な手順とデータ']
+            },
+            {
+                text: '意思決定をするとき、何を優先しますか？',
+                options: ['直感と経験', '論理的な分析']
+            },
+            {
+                text: 'フィードバックを受けるとき、どちらが響きますか？',
+                options: ['努力や姿勢への評価', '成果や結果への評価']
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = [];
+
+        function openDiagnosticModal() {
+            diagnosticModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            resetDiagnostic();
+        }
+
+        function closeDiagnosticModal() {
+            diagnosticModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function resetDiagnostic() {
+            currentQuestion = 0;
+            answers = [];
+            diagnosticQuestions.classList.remove('hidden');
+            diagnosticResult.classList.remove('active');
+            updateQuestion();
+        }
+
+        function updateQuestion() {
+            const q = questions[currentQuestion];
+            diagnosticQuestionNum.textContent = `質問 ${currentQuestion + 1} / ${questions.length}`;
+            diagnosticQuestionText.textContent = q.text;
+
+            diagnosticOptions.innerHTML = q.options.map((opt, i) =>
+                `<button class="diagnostic-option" data-value="${i}">${opt}</button>`
+            ).join('');
+
+            // Update progress bars
+            diagnosticProgress.querySelectorAll('.diagnostic-progress-bar').forEach((bar, i) => {
+                bar.classList.toggle('active', i <= currentQuestion);
+            });
+
+            // Add click handlers
+            diagnosticOptions.querySelectorAll('.diagnostic-option').forEach(btn => {
+                btn.addEventListener('click', handleAnswer);
+            });
+        }
+
+        function handleAnswer(e) {
+            const value = parseInt(e.target.dataset.value);
+            answers.push(value);
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                setTimeout(updateQuestion, 300);
+            } else {
+                setTimeout(showResult, 500);
+            }
+        }
+
+        function showResult() {
+            diagnosticQuestions.classList.add('hidden');
+            diagnosticResult.classList.add('active');
+
+            const score = answers.reduce((sum, a) => sum + a, 0);
+            const isLogical = score > 2;
+
+            if (isLogical) {
+                diagnosticResultType.textContent = '論理型';
+                diagnosticResultType.style.color = 'var(--primary)';
+                diagnosticResultIcon.style.borderColor = 'var(--primary)';
+                diagnosticResultIcon.style.backgroundColor = 'rgba(90, 100, 112, 0.1)';
+                diagnosticResultIcon.style.color = 'var(--primary)';
+                diagnosticAdviceText.textContent = '数字やデータを交えた説明が効果的です。「過去のデータでは85%の成功率」のように具体的な根拠を示すと、納得して行動に移しやすくなります。';
+            } else {
+                diagnosticResultType.textContent = '直感型';
+                diagnosticResultType.style.color = 'var(--accent)';
+                diagnosticResultIcon.style.borderColor = 'var(--accent)';
+                diagnosticResultIcon.style.backgroundColor = 'rgba(196, 150, 126, 0.1)';
+                diagnosticResultIcon.style.color = 'var(--accent)';
+                diagnosticAdviceText.textContent = '全体像やビジョンから伝えると響きやすいです。「このプロジェクトで実現したい未来」を共有することで、モチベーションが高まります。';
+            }
+        }
+
+        // Event listeners
+        if (diagnosticClose) {
+            diagnosticClose.addEventListener('click', closeDiagnosticModal);
+        }
+
+        if (diagnosticCtaBtn) {
+            diagnosticCtaBtn.addEventListener('click', closeDiagnosticModal);
+        }
+
+        if (floatingCtaBtn) {
+            floatingCtaBtn.addEventListener('click', openDiagnosticModal);
+        }
+
+        diagnosticModal.addEventListener('click', (e) => {
+            if (e.target === diagnosticModal) {
+                closeDiagnosticModal();
+            }
+        });
+
+        // Connect "無料で体験する" and "デモを開始する" buttons to diagnostic modal
+        document.querySelectorAll('.btn-accent, .btn-header-cta').forEach(btn => {
+            if (btn.textContent.includes('無料で体験') || btn.textContent.includes('無料デモ')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openDiagnosticModal();
+                });
+            }
+        });
+
+    </script>
+</body>
+</html>
