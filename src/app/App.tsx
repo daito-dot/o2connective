@@ -63,7 +63,9 @@ export default function App() {
           </nav>
 
           <a
-            href="#contact"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSewIEYxST_ajkWCQPR2cPsJzmYnKsC25uSc6Y8hTsPt0hZ2yg/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-flex px-5 py-2.5 bg-[#5a6470] text-white rounded-md text-sm font-medium hover:bg-[#4a5568] transition-colors"
           >
             お問い合わせ
@@ -102,7 +104,7 @@ export default function App() {
                 <a href="#solutions" className="text-gray-800 font-medium" onClick={() => setMobileMenuOpen(false)}>活用範囲</a>
                 <a href="#faq" className="text-gray-800 font-medium" onClick={() => setMobileMenuOpen(false)}>よくある質問</a>
                 <div className="h-px bg-gray-100 my-2" />
-                <a href="#contact" className="w-full py-3 bg-[#5a6470] text-white rounded text-sm font-medium text-center" onClick={() => setMobileMenuOpen(false)}>お問い合わせ</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSewIEYxST_ajkWCQPR2cPsJzmYnKsC25uSc6Y8hTsPt0hZ2yg/viewform" target="_blank" rel="noopener noreferrer" className="w-full py-3 bg-[#5a6470] text-white rounded text-sm font-medium text-center" onClick={() => setMobileMenuOpen(false)}>お問い合わせ</a>
               </div>
             </motion.div>
           </motion.div>
@@ -306,9 +308,14 @@ export default function App() {
             簡単なデモ診断から、あなたの組織の「思考回路」を読み解く体験を。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-10 py-5 bg-white text-[#5a6470] rounded font-bold hover:bg-gray-100 transition-all tracking-widest text-xs">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSewIEYxST_ajkWCQPR2cPsJzmYnKsC25uSc6Y8hTsPt0hZ2yg/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-10 py-5 bg-white text-[#5a6470] rounded font-bold hover:bg-gray-100 transition-all tracking-widest text-xs"
+            >
               お問い合わせ
-            </button>
+            </a>
           </div>
         </div>
       </section>
