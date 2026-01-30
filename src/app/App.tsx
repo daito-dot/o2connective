@@ -333,9 +333,10 @@ export default function App() {
           <div>
             <h4 className="text-white font-bold text-xs tracking-widest mb-6">コンテンツ</h4>
             <ul className="space-y-3 text-[10px] tracking-wide">
-              <li><a href="#" className="hover:text-white transition-colors">コンセプト</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">機能</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">活用シーン</a></li>
+              <li><a href="#about" className="hover:text-white transition-colors">コンセプト</a></li>
+              <li><a href="#features" className="hover:text-white transition-colors">機能</a></li>
+              <li><a href="#solutions" className="hover:text-white transition-colors">活用シーン</a></li>
+              <li><a href="#faq" className="hover:text-white transition-colors">よくある質問</a></li>
             </ul>
           </div>
         </div>
