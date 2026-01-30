@@ -62,6 +62,13 @@ export default function App() {
             </a>
           </nav>
 
+          <a
+            href="#contact"
+            className="hidden md:inline-flex px-5 py-2.5 bg-[#5a6470] text-white rounded-md text-sm font-medium hover:bg-[#4a5568] transition-colors"
+          >
+            お問い合わせ
+          </a>
+
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded transition-colors text-xs font-bold tracking-widest"
@@ -94,6 +101,8 @@ export default function App() {
                 <a href="#features" className="text-gray-800 font-medium" onClick={() => setMobileMenuOpen(false)}>機能</a>
                 <a href="#solutions" className="text-gray-800 font-medium" onClick={() => setMobileMenuOpen(false)}>活用範囲</a>
                 <a href="#faq" className="text-gray-800 font-medium" onClick={() => setMobileMenuOpen(false)}>よくある質問</a>
+                <div className="h-px bg-gray-100 my-2" />
+                <a href="#contact" className="w-full py-3 bg-[#5a6470] text-white rounded text-sm font-medium text-center" onClick={() => setMobileMenuOpen(false)}>お問い合わせ</a>
               </div>
             </motion.div>
           </motion.div>
@@ -287,7 +296,7 @@ export default function App() {
       </section>
 
       {/* CTA */}
-      <section className="py-32 bg-[#5a6470] text-white relative overflow-hidden">
+      <section id="contact" className="py-32 bg-[#5a6470] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[#4a5568] opacity-50" />
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -320,13 +329,6 @@ export default function App() {
               <li><a href="#" className="hover:text-white transition-colors">コンセプト</a></li>
               <li><a href="#" className="hover:text-white transition-colors">機能</a></li>
               <li><a href="#" className="hover:text-white transition-colors">活用シーン</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-white font-bold text-xs tracking-widest mb-6">規約・ポリシー</h4>
-            <ul className="space-y-3 text-[10px] tracking-wide">
-              <li><a href="#" className="hover:text-white transition-colors">プライバシーポリシー</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">利用規約</a></li>
             </ul>
           </div>
         </div>
